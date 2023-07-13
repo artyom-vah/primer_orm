@@ -161,7 +161,35 @@ posts_adm = Post.objects.filter(author=author)
 # будет выведено (то что указано в модели в методе __str__)
 <QuerySet [<Post: Go>, <Post: JavaScript>, <Post: C++>]>
 ```
+Вывод постов по определенной категории ( тут вывод постов по дизайну)
+```bash
+category_disign =  Category.objects.get(title='Дизайн')
+```
+```bash
+category_disign =  Post.objects.filter(categories=category_disign)
+```
+либо так:
+```bash
+post_category_disign  = Post.objects.filter(categories=Category.objects.get(title='Дизайн'))
+```
+
+Вывод постов по определенному автору и по определенной категории  
+```bash
+artemiy = User.objects.get(username='Артемий')
+```
+```bash
+programming = Category.objects.get(title='Программирование')
+```
+```bash
+posts_artemiy_programming = Post.objects.filter(author=artemiy, categories=programming)
+```
+либо так: (в данном слуе делает 2 запроса к бд, сначала выбирает user Артемий, потом выбирается категория Программирование)
+```bash
+posts_artemiy_programming = Post.objects.filter(author=User.objects.get(username='Артемий'), categories=Category.objects.get(title='Программирование'))
+```
+
 ```bash
 
 ```
+ programming = Category.objects.get(title='Программирование')
 **Автор проекта: Артем Вахрушев.**

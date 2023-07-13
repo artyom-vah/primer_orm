@@ -63,133 +63,204 @@ python manage.py createsuperuser
 
 ## 1. Создание объектов:
 #### 1.1 создание пользователя
-```bash
+```python
 User.objects.create_user(username='Artyom', password='1234')
 ```
-```bash
+
+```python
 user2 = User.objects.create_user(username='Николай', password='1234')
 ```
 #### 1.2 создание категорий
-```bash
+```python
  Category.objects.create(title='программирование', slug='programming', description='Описание категории - программирование')
 ```
-```bash
+
+```python
 Category.objects.create(title='аналитика', slug='analytics', description='Описание категории - аналитика')
 ```
-```bash
+
+```python
 Category.objects.create(title='дизайн', slug='design', description='Описание категории - дизайн')
 ```
+
 #### 1.3 создание поста
-```bash
+
+```python
  author = User.objects.get(username='adm')
 ```
-```bash
+
+```python
 category = Category.objects.get(title='Программирование')
 ```
-```bash
+
+```python
 post1 = Post.objects.create(title='Python', text='Python - интерпретируемый язык программирования высокого уровня с динамической типизацией. Он обладает простым и понятным синтаксисом.', author=author, categories=category)
 ```
-либо так:
-```bash
+
+* _либо так:_
+```python
 post2 = Post.objects.create(title='C#',text ='C# язык программирования, разработанный компанией Microsoft. Он является объектно-ориентированным языком с широкими возможностямиюю .', author=User.objects.get(username='Артемий'), categories=Category.objects.get(title='Программирование'))
 ```
 
-```bash
 
-```
 ## 2. Изменение объектов:
-#### 1.1 изменение пользователя
-```bash
+#### 2.1 изменение пользователя
+```python
 user1 = User.objects.get(pk=2)
 ```
-```bash
+
+```python
 user1.username= 'Артемий'
 ```
-```bash
+
+```python
 user1.first_name = 'Тема'
 ```
-```bash
+
+```python
  user1.last_name = 'Пупкин'
 ```
-```bash
+
+```python
 user1.save()
 ```
 
 #### 1.2 изменение категорий
-```bash
- c1 = Category.objects.get(title='программирование')
-```
-```bash
- c1.title = 'Программирование'
-```
-```bash
- c1.description = 'Описание группы программирование'
-```
-```bash
- c1.save()
+```python
+c1 = Category.objects.get(title='программирование')
 ```
 
+```python
+c1.title = 'Программирование'
+```
+
+```python
+c1.description = 'Описание группы программирование'
+```
+
+```python
+c1.save()
+```
 
 ## 3. Выборка разных объектов:
-```bash
+```python
 Category.objects.all()
 ```
-```bash 
+
+```python 
 # будет выведено
 <QuerySet [<Category: Программирование>, <Category: Аналитика>, <Category: Дизайн>]>
 ```
 
-Вывод постов определенного пользователя
-```bash
+* _Вывод постов определенного пользователя_
+```python
 author = User.objects.get(username='adm')
 ```
-```bash
+
+```python
 posts_adm = Post.objects.filter(author=author)
 ```
-либо так:
-```bash
+
+* _либо так:_
+```python
  posts_adm = Post.objects.filter(author=User.objects.get(username='adm'))
 ```
-```bash
+
+```python
 # будет выведено (то что указано в модели в методе __str__)
 <QuerySet [<Post: Kotlin>, <Post: Ruby>, <Post: Java>, <Post: Python>]>
 ```
-```bash
+
+```python
 посты_Николая = Post.objects.filter(author=User.objects.get(username='Николай'))
 ```
-```bash
+
+```python
 # будет выведено (то что указано в модели в методе __str__)
 <QuerySet [<Post: Go>, <Post: JavaScript>, <Post: C++>]>
 ```
-Вывод постов по определенной категории ( тут вывод постов по дизайну)
-```bash
+
+* _Вывод постов по определенной категории ( тут вывод постов по дизайну)_
+```python
 category_disign =  Category.objects.get(title='Дизайн')
 ```
-```bash
+
+```python
 category_disign =  Post.objects.filter(categories=category_disign)
 ```
-либо так:
-```bash
+* _либо так:_
+```python
 post_category_disign  = Post.objects.filter(categories=Category.objects.get(title='Дизайн'))
 ```
 
-Вывод постов по определенному автору и по определенной категории  
-```bash
+* _Вывод постов по определенному автору и по определенной категории_
+```python
 artemiy = User.objects.get(username='Артемий')
 ```
-```bash
+
+```python
 programming = Category.objects.get(title='Программирование')
 ```
-```bash
+
+```python
 posts_artemiy_programming = Post.objects.filter(author=artemiy, categories=programming)
 ```
-либо так: (в данном слуе делает 2 запроса к бд, сначала выбирает user Артемий, потом выбирается категория Программирование)
-```bash
+
+* _либо так: (в данном слуе делает 2 запроса к бд, сначала выбирает user Артемий, потом выбирается категория Программирование)_
+```python
 posts_artemiy_programming = Post.objects.filter(author=User.objects.get(username='Артемий'), categories=Category.objects.get(title='Программирование'))
 ```
 
+* _Выполнение запроса с использованием select_related предыдущего примера_ 
+```python
+artemiy = User.objects.get(username='Артемий')
+```
+
+```python
+programming = Category.objects.get(title='Программирование')
+```
+
+```python
+posts_artemiy_programming = Post.objects.select_related('author', 'categories').filter(author=artemiy, categories=programming)
+```
+```python
+# будет такой результат
+ [<Post: Стратегии тестирования>, <Post: Тестирование пользовательского интерфейса>, <Post: Автоматизация тестирования'>, <Post: Виды тестирования>, <Post: Введение в тестирование>, <Post: Принятие данных на основе аналитики>, <Post: Машинное обучение в аналитике>, <Post: Визуализация данных>, <Post: А
+нализ данных и статистика>, <Post: Методы сбора данных для аналитики>, <Post: Введение в аналитику данных>, <Post: Тенденции в дизайне>, <Post: Эффективные пользовательские интерфейсы>, <Post: Типографика в дизайне>, <Post: Цветовая палитра в дизайне>, <Post: Основные принципы дизайна>, <Post: Тестирование>, <P
+ost: Kotlin>, <Post: Go>, <Post: SQL>, '...(remaining elements truncated)
+```
+
+```python
+for post in posts_artemiy_programming:
+    print('Заголовок:', post.title)
+    print('Текст:', post.text)
+    print('Автор:', post.author.username)
+    print('Категория:', post.categories.title)
+    print('----------------------')
+```
+
+```python
+# выводим все посты с авторами и категориями
+posts = Post.objects.select_related('author', 'categories').all()
+```
+```python
+# будет такой результат
+<QuerySet [<Post: Стратегии тестирования>, <Post: Тестирование пользовательского интерфейса>, <Post: Автоматизация тестирования'>, <Post: Виды тестирования>, <Post: Введение в тестирование>, <Post: Принятие данных на основе аналитики>, <Post: Машинное обучение в аналитике>, <Post: Визуализация данных>, <Post: А
+нализ данных и статистика>, <Post: Методы сбора данных для аналитики>, <Post: Введение в аналитику данных>, <Post: Тенденции в дизайне>, <Post: Эффективные пользовательские интерфейсы>, <Post: Типографика в дизайне>, <Post: Цветовая палитра в дизайне>, <Post: Основные принципы дизайна>, <Post: Тестирование>, <P
+ost: Kotlin>, <Post: Go>, <Post: SQL>, '...(remaining elements truncated)...']>
+```
+
+```python
+for post in posts:
+    print('Заголовок:', post.title)
+    print('Текст:', post.text)
+    print('Автор:', post.author.username)
+    print('Категория:', post.categories.title)
+    print('----------------------')
+```
+
 ```bash
 
 ```
- programming = Category.objects.get(title='Программирование')
+
 **Автор проекта: Артем Вахрушев.**

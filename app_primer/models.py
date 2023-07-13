@@ -22,7 +22,7 @@ class Post(models.Model):
     title = models.CharField(max_length=200, verbose_name='Название поста')
     text = models.TextField(verbose_name='Текст поста')
     pub_date = models.DateTimeField(verbose_name='Дата публикации', auto_now_add=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='related_author',verbose_name='Автор')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='related_author', verbose_name='Автор')
     categories = models.ForeignKey(Category, on_delete=models.SET_NULL, related_name='related_categories', blank=True, null=True, verbose_name='Категория')
 
 

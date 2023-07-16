@@ -61,7 +61,7 @@ python manage.py createsuperuser
 
 ## Запросы на Django ORM
 
-## 1. Создание объектов:
+### 1. Создание объектов:
 #### 1.1 создание пользователя
 ```python
 User.objects.create_user(username='Artyom', password='1234')
@@ -118,7 +118,7 @@ user1.first_name = 'Тема'
 ```
 
 ```python
- user1.last_name = 'Пупкин'
+user1.last_name = 'Пупкин'
 ```
 
 ```python
@@ -188,6 +188,7 @@ category_disign =  Category.objects.get(title='Дизайн')
 ```python
 category_disign =  Post.objects.filter(categories=category_disign)
 ```
+
 * _либо так:_
 ```python
 post_category_disign  = Post.objects.filter(categories=Category.objects.get(title='Дизайн'))
@@ -223,6 +224,7 @@ programming = Category.objects.get(title='Программирование')
 ```python
 posts_artemiy_programming = Post.objects.select_related('author', 'categories').filter(author=artemiy, categories=programming)
 ```
+
 ```python
 # будет такой результат
  [<Post: Стратегии тестирования>, <Post: Тестирование пользовательского интерфейса>, <Post: Автоматизация тестирования'>, <Post: Виды тестирования>, <Post: Введение в тестирование>, <Post: Принятие данных на основе аналитики>, <Post: Машинное обучение в аналитике>, <Post: Визуализация данных>, <Post: А
@@ -243,6 +245,7 @@ for post in posts_artemiy_programming:
 # выводим все посты с авторами и категориями
 posts = Post.objects.select_related('author', 'categories').all()
 ```
+
 ```python
 # будет такой результат
 <QuerySet [<Post: Стратегии тестирования>, <Post: Тестирование пользовательского интерфейса>, <Post: Автоматизация тестирования'>, <Post: Виды тестирования>, <Post: Введение в тестирование>, <Post: Принятие данных на основе аналитики>, <Post: Машинное обучение в аналитике>, <Post: Визуализация данных>, <Post: А
@@ -259,8 +262,72 @@ for post in posts:
     print('----------------------')
 ```
 
+* _Вывести автора который написал поста о "Python"_
+```python
+Post.objects.get(title="Python").author
+```
+
+### 4. Задания:
+[//]: # (4.1 Создание любой объект моделей User, Category, Post.)
+<details>
+<summary>
+<strong>
+4.1 Создание любой объект моделей User, Category, Post.
+</strong>
+</summary>
+
+```python
+User.objects.create_user(username='Artyom', password='1234')
+```
+
+```python
+Category.objects.create(title='программирование', slug='programming', description='Описание категории - программирование')
+```
+
+```python
+Post.objects.create(title='Python', text='Python - интерпретируемый язык программирования высокого уровня с динамической типизацией. Он обладает простым и понятным синтаксисом.', author=author, categories=category)
+```
+</details>
+
+[//]: # (4.2 Вывести все объекты моделей User, Category, Post.)
+<details>
+<summary>
+<strong> 
+4.2 Вывести все объекты моделей User, Category, Post.
+</strong>
+</summary>
+
+```python
+Post.objects.all()
+```
+
+```python
+Category.objects.all()
+```
+</details>
+
+[//]: # (4.3 Вывести количество всех Пользователей, Постов, Категорий.)
+<details>
+<summary>
+<strong> 
+4.3 Вывести количество всех Пользователей, Постов, Категорий.
+</strong>
+</summary>
+
+```python
+Category.objects.count()
+```
+```python
+Post.objects.count()
+```
+</details>
+
+
+
+
 ```bash
 
 ```
+
 
 **Автор проекта: Артем Вахрушев.**

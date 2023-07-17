@@ -466,6 +466,10 @@ Post.objects.exclude(categories__in=[programming, testing])
 ```python
 Post.objects.all().exclude(author__username="adm")
 ```
+* _выводим все посты кроме постов пользователя adm категории дизайн_
+```python
+Post.objects.all().exclude(author__username="adm", categories__title="Дизайн")
+```
 </details>
 
 ```python

@@ -351,9 +351,9 @@ Post.objects.filter(author__username="adm")
 ```python
 Post.objects.filter(author__username="adm").count()
 ```
-</details>
 
 * _также посты пользователя можно вызвать при помощи обратной модели related_name:_
+
 ```python
 # вот моя модель:
 class Post(models.Model):
@@ -379,6 +379,7 @@ adm = User.objects.get(pk=1)
 ```python
 posts_adm = adm.post_set.all()
 ```
+
 </details>
 
 [//]: # (--------------------------------------------------------------)
@@ -406,7 +407,7 @@ programming.posts.all()
 ```
 * _также считаем количество через related_name_
 ```python
-programming.posts.count()
+programming.posts.all().count()
 ```
 
 </details>

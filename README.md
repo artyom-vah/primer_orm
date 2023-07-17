@@ -353,6 +353,34 @@ Post.objects.filter(author__username="adm").count()
 ```
 </details>
 
+* _также посты пользователя можно вызвать при помощи обратной модели related_name:_
+```python
+# вот моя модель:
+class Post(models.Model):
+    title = models.CharField(max_length=200, verbose_name='Название поста')
+    text = models.TextField(verbose_name='Текст поста')
+    pub_date = models.DateTimeField(verbose_name='Дата публикации', auto_now_add=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts', verbose_name='Автор')
+    categories = models.ForeignKey(Category, on_delete=models.SET_NULL, related_name='posts', blank=True, null=True, verbose_name='Категория')
+```
+
+```python
+adm = User.objects.get(username='adm')
+```
+
+```python
+posts_adm = adm.posts.all()
+```
+
+* _в случае если related_name не указан то можно использовать название самаой модели (+set) - post_set_
+```python
+adm = User.objects.get(pk=1)
+```
+```python
+posts_adm = adm.post_set.all()
+```
+</details>
+
 [//]: # (--------------------------------------------------------------)
 [//]: # (4.5 Вывести все посты определенного пользователя и их количество.)
 <details>
@@ -369,6 +397,18 @@ Post.objects.filter(categories__title="Программирование")
 ```python
 Post.objects.filter(categories__title="Программирование").count()
 ```
+* _через related_name_
+```python
+programming = Category.objects.get(title='Программирование')
+```
+```python
+programming.posts.all()
+```
+* _также считаем количество через related_name_
+```python
+programming.posts.count()
+```
+
 </details>
 
 [//]: # (--------------------------------------------------------------)

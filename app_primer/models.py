@@ -25,9 +25,8 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='related_author', verbose_name='Автор')
     categories = models.ForeignKey(Category, on_delete=models.SET_NULL, related_name='related_categories', blank=True, null=True, verbose_name='Категория')
 
-
     class Meta:
-        ordering = ('-pub_date',)
+        ordering = ('pub_date',)
         verbose_name = 'Пост'
         verbose_name_plural = 'Посты'
 

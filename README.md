@@ -399,8 +399,6 @@ Post.objects.filter(author=user, categories=category)
 ```python
 Post.objects.filter(Q(author=user) & Q(categories=category)) 
 ```
-
-
 </details>
 
 ```bash
@@ -409,3 +407,4 @@ Post.objects.filter(Q(author=user) & Q(categories=category))
 
 
 **Автор проекта: Артем Вахрушев.**
+   

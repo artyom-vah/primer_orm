@@ -273,20 +273,29 @@ Post.objects.get(title="Python").author
 <details>
 <summary>
 <strong>
-4.1 Создание любой объект моделей User, Category, Post.
+4.1 Создание(удаление) любого объекта моделей User, Category, Post.
 </strong>
 </summary>
 
 ```python
 User.objects.create_user(username='Artyom', password='1234')
 ```
-
 ```python
 Category.objects.create(title='программирование', slug='programming', description='Описание категории - программирование')
 ```
 
 ```python
 Post.objects.create(title='Python', text='Python - интерпретируемый язык программирования высокого уровня с динамической типизацией. Он обладает простым и понятным синтаксисом.', author=author, categories=category)
+```
+* _удаление объектов:_
+```python
+User.objects.create_user(username="test", password="test")
+```
+```python
+del_test_user = User.objects.get(pk=5).delete()
+```
+```python
+User.objects.get(username="test").delete()
 ```
 </details>
 

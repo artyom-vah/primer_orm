@@ -590,7 +590,7 @@ SELECT "app_primer_category"."id",
 </details>
 
 ```python
-Post.objects.prefetch_related('author','categories').all()
+
 ```
 
 **Автор проекта: Артем Вахрушев.**

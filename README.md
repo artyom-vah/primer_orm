@@ -59,7 +59,14 @@ python manage.py migrate
 python manage.py createsuperuser
 ```
 
-## Запросы на Django ORM
+## Запросы на Django ORM (немного теории)
+
+<details>
+<summary>
+<strong> 
+Теория и примеры
+</strong>
+</summary>
 
 ### 1. Создание объектов:
 #### 1.1 создание пользователя
@@ -101,7 +108,6 @@ post1 = Post.objects.create(title='Python', text='Python - интерпрети�
 ```python
 post2 = Post.objects.create(title='C#',text ='C# язык программирования, разработанный компанией Microsoft. Он является объектно-ориентированным языком с широкими возможностямиюю .', author=User.objects.get(username='Артемий'), categories=Category.objects.get(title='Программирование'))
 ```
-
 
 ## 2. Изменение объектов:
 #### 2.1 изменение пользователя
@@ -267,13 +273,17 @@ for post in posts:
 Post.objects.get(title="Python").author
 ```
 
-### 4. Задания:
+</details>
+
+
+
+## Задания:
 [//]: # (--------------------------------------------------------------)
-[//]: # (4.1 Создание любой объект моделей User, Category, Post.)
+[//]: # (1. Создание любой объект моделей User, Category, Post.)
 <details>
 <summary>
 <strong>
-4.1 Создание(удаление) любого объекта моделей User, Category, Post.
+1. Создание(удаление) любого объекта моделей User, Category, Post.
 </strong>
 </summary>
 
@@ -300,11 +310,11 @@ User.objects.get(username="test").delete()
 </details>
 
 [//]: # (--------------------------------------------------------------)
-[//]: # (4.2 Вывести все объекты моделей User, Category, Post и их  количество.)
+[//]: # (2. Вывести все объекты моделей User, Category, Post и их  количество.)
 <details>
 <summary>
 <strong> 
-4.2 Вывести все объекты моделей User, Category, Post (и их количество).
+2. Вывести все объекты моделей User, Category, Post (и их количество).
 </strong>
 </summary>
 
@@ -326,11 +336,11 @@ Post.objects.all().count()
 </details>
 
 [//]: # (--------------------------------------------------------------)
-[//]: # (4.3 Вывести все посты определенного пользователя и их количество.)
+[//]: # (3. Вывести все посты определенного пользователя и их количество.)
 <details>
 <summary>
 <strong> 
-4.3 Вывести все посты определенного пользователя (и их количество).
+3. Вывести все посты определенного пользователя (и их количество).
 </strong>
 </summary>
 
@@ -373,11 +383,11 @@ posts_adm = adm.post_set.all()
 </details>
 
 [//]: # (--------------------------------------------------------------)
-[//]: # (4.4 Вывести все посты определенного пользователя и их количество.)
+[//]: # (4. Вывести все посты определенного пользователя и их количество.)
 <details>
 <summary>
 <strong> 
-4.4 Вывести все посты определенной категории (и их количество).
+4. Вывести все посты определенной категории (и их количество).
 </strong>
 </summary>
 
@@ -403,11 +413,11 @@ programming.posts.all().count()
 </details>
 
 [//]: # (--------------------------------------------------------------)
-[//]: # (4.5 Вывести все посты определенного пользователя и определенной категории.)
+[//]: # (5. Вывести все посты определенного пользователя и определенной категории.)
 <details>
 <summary>
 <strong> 
-4.5 Вывести все посты определенного пользователя и определенной категории.
+5.Вывести все посты определенного пользователя и определенной категории.
 </strong>
 </summary>
 
@@ -433,13 +443,11 @@ Post.objects.filter(Q(author=user) & Q(categories=category))
 </details>
 
 [//]: # (--------------------------------------------------------------)
-[//]: # (4.6 Вывести все посты пользователей adm, Николай, исключая категорию Аналитика, Дизайн.)
-
-
+[//]: # (6. Вывести все посты пользователей adm, Николай, исключая категорию Аналитика, Дизайн.)
 <details>
 <summary>
 <strong> 
-4.6 Вывести все посты исключая категорию Аналитика, Дизайн, а также все посты исключая пользователей adm, Николай.
+6. Вывести все посты исключая категорию Аналитика, Дизайн, а также все посты исключая пользователей adm, Николай.
 </strong>
 </summary>
 
@@ -475,12 +483,11 @@ Post.objects.all().exclude(author__username="adm", categories__title="Дизай
 
 
 [//]: # (--------------------------------------------------------------)
-[//]: # (4.7 Вывести все id постов и их сумму.)
-
+[//]: # (7. Вывести все id постов и их сумму.)
 <details>
 <summary>
 <strong> 
-4.7 Вывести все id постов и их сумму
+7. Вывести все id постов и их сумму
 </strong>
 </summary>
 
@@ -496,8 +503,94 @@ sum(Post.objects.values_list('id', flat=True))
 
 </details>
 
-```python
+[//]: # (--------------------------------------------------------------)
+[//]: # (8. написать несколько запросов с использованием select_related и prefetch_related.)
+<details>
+<summary>
+<strong> 
+8. написать несколько запросов с использованием select_related и prefetch_related.
+</strong>
+</summary>
 
+```python
+Post.objects.select_related('author','categories').all()
+```
+```python
+# вот пример select_related, таблицы post auth_user category в одном запросе: 
+ SELECT "app_primer_post"."id",
+       "app_primer_post"."title",
+       "app_primer_post"."text",
+       "app_primer_post"."pub_date",
+       "app_primer_post"."author_id",
+       "app_primer_post"."categories_id",
+       "auth_user"."id",
+       "auth_user"."password",
+       "auth_user"."last_login",
+       "auth_user"."is_superuser",
+       "auth_user"."username",
+       "auth_user"."first_name",
+       "auth_user"."last_name",
+       "auth_user"."email",
+       "auth_user"."is_staff",
+       "auth_user"."is_active",
+       "auth_user"."date_joined",
+       "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_post"
+ INNER JOIN "auth_user"
+    ON ("app_primer_post"."author_id" = "auth_user"."id")
+  LEFT OUTER JOIN "app_primer_category"
+    ON ("app_primer_post"."categories_id" = "app_primer_category"."id")
+ ORDER BY "app_primer_post"."pub_date" ASC
+ LIMIT 21
+```
+```python
+Post.objects.prefetch_related('author','categories').all()
+```
+```python
+Post.objects.prefetch_related('author','categories').all()
+```
+```python
+# вот пример prefetch_related, таблицы post auth_user category в 3[ запросаз: 
+SELECT "app_primer_post"."id",
+       "app_primer_post"."title",
+       "app_primer_post"."text",
+       "app_primer_post"."pub_date",
+       "app_primer_post"."author_id",
+       "app_primer_post"."categories_id"
+  FROM "app_primer_post"
+ ORDER BY "app_primer_post"."pub_date" ASC
+ LIMIT 21
+
+Execution time: 0.000000s [Database: default]
+SELECT "auth_user"."id",
+       "auth_user"."password",
+       "auth_user"."last_login",
+       "auth_user"."is_superuser",
+       "auth_user"."username",
+       "auth_user"."first_name",
+       "auth_user"."last_name",
+       "auth_user"."email",
+       "auth_user"."is_staff",
+       "auth_user"."is_active",
+       "auth_user"."date_joined"
+  FROM "auth_user"
+ WHERE "auth_user"."id" IN (1, 2, 3)
+
+Execution time: 0.000000s [Database: default]
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" IN (1, 2, 3, 4)
+```
+</details>
+
+```python
+Post.objects.prefetch_related('author','categories').all()
 ```
 
 **Автор проекта: Артем Вахрушев.**

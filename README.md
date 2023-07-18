@@ -504,11 +504,11 @@ sum(Post.objects.values_list('id', flat=True))
 </details>
 
 [//]: # (--------------------------------------------------------------)
-[//]: # (8. написать несколько запросов с использованием select_related и prefetch_related.)
+[//]: # (8. Написать несколько запросов с использованием select_related и prefetch_related.)
 <details>
 <summary>
 <strong> 
-8. написать несколько запросов с использованием select_related и prefetch_related.
+8. Написать несколько запросов с использованием select_related и prefetch_related.
 </strong>
 </summary>
 
@@ -545,9 +545,6 @@ Post.objects.select_related('author','categories').all()
     ON ("app_primer_post"."categories_id" = "app_primer_category"."id")
  ORDER BY "app_primer_post"."pub_date" ASC
  LIMIT 21
-```
-```python
-Post.objects.prefetch_related('author','categories').all()
 ```
 ```python
 Post.objects.prefetch_related('author','categories').all()

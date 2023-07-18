@@ -516,7 +516,7 @@ sum(Post.objects.values_list('id', flat=True))
 Post.objects.select_related('author','categories').all()
 ```
 ```python
-# вот пример select_related, таблицы post auth_user category в одном запросе: 
+# вот пример select_related, таблицы: post, auth_user, category в одном запросе: 
  SELECT "app_primer_post"."id",
        "app_primer_post"."title",
        "app_primer_post"."text",
@@ -553,7 +553,7 @@ Post.objects.prefetch_related('author','categories').all()
 Post.objects.prefetch_related('author','categories').all()
 ```
 ```python
-# вот пример prefetch_related, таблицы post auth_user category в 3[ запросаз: 
+# вот пример prefetch_related, таблицы: post, auth_user, category в 3х запросах: 
 SELECT "app_primer_post"."id",
        "app_primer_post"."title",
        "app_primer_post"."text",

@@ -28,6 +28,8 @@ router.register('category', CategoryViewSet)
 
 
 urlpatterns = [
+    path('',include('app_primer.urls')),
+
     path('admin/', admin.site.urls),
     path('api/v1/', include(router.urls)),
     path('api/v1/api-auth/', views.obtain_auth_token)

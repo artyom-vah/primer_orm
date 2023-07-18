@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    Категрия "{{ category_posts.0.categories.title }}". В этой категории всего {{quantity}} постов
+    <br>
+    {% for cat in category_posts %}
+    <ul><li>{{ cat.pk }}) {{ cat.title}}</li></ul>
+    {% endfor %}
+{% endblock %}

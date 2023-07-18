@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+    <title>
+        {% block title %} Все посты
+        {% endblock %}
+    </title>
+{% block content %}
+
+  Все посты:
+  {% for post in posts %}
+    <ul><li>  {{post}}</li></ul>
+  {% endfor %}
+
+  Все пользователи:
+  {% for user in all_users %}
+  <ul><li>{{ user.pk }}) {{ user }}</li></ul>
+  {% endfor %}
+
+  Все категории:
+  {% for category in categories %}
+  <ul><li>{{ category.pk }}) {{ category.title }}</li></ul>
+  {% endfor %}
+
+{% endblock %}

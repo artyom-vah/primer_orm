@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Post, Category, User
 
 
@@ -15,18 +15,30 @@ def index(request):
     return render(request, 'app_primer/index.html', context)
 
 
-def category(request, slug):
-    category_posts = Post.objects.filter(categories__slug=slug)
-    quantity = Post.objects.filter(categories__slug=slug).count()
+def category_posts(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+    category_posts = category.posts.all()
+    # quantity = Post.objects.filter(categories__slug=slug).count()
     context = {
         'category_posts': category_posts,
-        'quantity': quantity,
+        # 'quantity': quantity,
     }
     return render(request, 'app_primer/category.html', context)
 
+
 def post_detail(request, post_id):
-    post = Post.objects.filter(pk=post_id)[0]
+    post = get_object_or_404(Post, pk=post_id)
     context = {
         'post': post,
     }
     return render(request, 'app_primer/post_detail.html', context)
+
+
+def profile(request, username):
+    author = get_object_or_404(User, username=username)
+    posts_author = author.posts.all()
+    context = {
+        'author': author,
+        'posts_author': posts_author
+    }
+    return render(request, 'app_primer/profile.html', context)

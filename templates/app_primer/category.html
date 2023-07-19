@@ -1,9 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    Категрия "{{ category_posts.0.categories.title }}". В этой категории всего {{quantity}} постов
-    <br>
-    {% for cat in category_posts %}
-    <ul><li>{{ cat.pk }}) {{ cat.title}}</li></ul>
-    {% endfor %}
+
+  <div class="container mt-4">
+        <h1>Категрия "{{ category_posts.0.categories.title }}".</h1>
+        <p> В этой категории всего {{category_posts.count}} постов.</p>
+        <div class="row">
+            <div class="col-md">
+                <ul class="list-group">
+                    {% for cat in category_posts %}
+                        <li class="list-group-item">
+                            {{ cat.pk }}) {{ cat.title }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
 {% endblock %}

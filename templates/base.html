@@ -8,10 +8,16 @@
         {% endblock %}
     </title>
 </head>
+<ul>
 
+    <li><a href="{% url 'app_primer:index' %}">Список всех постов</a></li>
+
+</ul>
     <body>
-        {% block content %}
-        {% endblock %}
+         <div class="container">
+            {% block content %}
+            {% endblock %}
+         </div>
     </body>
 
 </html>

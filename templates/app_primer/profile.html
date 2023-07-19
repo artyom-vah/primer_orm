@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+   <h1>User Profile</h1>
+    <p>Имя автора: {{ author.username }}</p>
+    <p>Количество постов данного автора: {{ posts_author.count }}</p>
+    <ul>
+     {% for post in posts_author %}
+            <li>
+                <h3>{{ post.title }}</h3>
+                <p>{{ post.text }}</p>
+                <p>Published on: {{ post.pub_date }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

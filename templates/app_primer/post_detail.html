@@ -1,5 +1,58 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<ul><li> {{ post }}</li></ul>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 30px;
+        }
+        .post-details {
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .category {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .text {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .pub-date {
+            font-size: 14px;
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
+        .author {
+            font-size: 16px;
+            color: #007bff;
+        }
+    </style>
+
+ <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="post-details">
+                    <div class="category">Категория: {{ post.categories }}</div>
+                    <div class="title">Статья: {{ post.title }}</div>
+                    <div class="text">{{ post.text }}</div>
+                    <div class="pub-date">Опубликовано: {{ post.pub_date|date:"d E Y" }}</div>
+                    <div class="author">Автор: {{ post.author }}</div>
+                </div>
+            </div>
+        </div>
+
 {% endblock %}
+
+
+
+

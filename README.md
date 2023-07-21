@@ -603,19 +603,44 @@ Post.objects.filter(text__contains="других")
 
 
 [//]: # (--------------------------------------------------------------)
-[//]: # (9. Вывести посты в которых содержатся слова "других", "проце", "испол", "автом".)
+[//]: # (10. Вывести посты у которых значение id больше 5 и меньше 10.)
 <details>
 <summary>
 <strong> 
 10. Вывести посты у которых значение id больше 5 и меньше 10
 </strong>
 </summary>
+```python
+Post.objects.filter(pk__gt=5, pk__lt=10).count()
+```
+```python
+Post.objects.filter(pk__gt=5).filter(pk__lt=10)
+```
+```python
+from django.db.models import Q
+```
+```python
+Post.objects.filter(Q(pk__gt=5) & Q(pk__lt=10))
+```
+
+</details>
+
+
+[//]: # (--------------------------------------------------------------)
+[//]: # (11. Вывести посты у которых значение id больше 5 и меньше 10.)
+<details>
+<summary>
+<strong> 
+11. Вывести посты у которых значение id больше 5 и меньше 10
+</strong>
+</summary>
 
 ```python
 Post.objects.filter(pk__gt=5).filter(pk__lt=10)
 ```
-</details>
 
+
+</details>
 
 ```python
 

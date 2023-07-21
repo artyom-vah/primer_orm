@@ -610,6 +610,7 @@ Post.objects.filter(text__contains="других")
 10. Вывести посты у которых значение id больше 5 и меньше 10
 </strong>
 </summary>
+
 ```python
 Post.objects.filter(pk__gt=5, pk__lt=10).count()
 ```

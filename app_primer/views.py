@@ -1,20 +1,9 @@
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from .models import Post, Category, User
 
 
-class AllPosts(ListView):
-    model = Post
-    template_name = 'app_primer/index.html'
-    context_object_name = 'posts'
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['all_users'] = User.objects.all()
-        context['categories'] = Category.objects.all()
-        return context
-
-
+#---------------------------------------------------------------------
 # def index(request):
 #     posts = Post.objects.all()
 #     all_users = User.objects.all()
@@ -26,26 +15,59 @@ class AllPosts(ListView):
 #     }
 #     return render(request, 'app_primer/index.html', context)
 
+class AllPosts(ListView):
+    model = Post
+    template_name = 'app_primer/index.html'
+    context_object_name = 'posts'
 
-def category_posts(request, slug):
-    category = get_object_or_404(Category, slug=slug)
-    category_posts = category.posts.all()
-    # quantity = Post.objects.filter(categories__slug=slug).count()
-    context = {
-        'category_posts': category_posts,
-        # 'quantity': quantity,
-    }
-    return render(request, 'app_primer/category.html', context)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context['posts'] = Post.objects.all() # можно и так
+        context['all_users'] = User.objects.all()
+        context['categories'] = Category.objects.all()
+        return context
 
-
-def post_detail(request, post_id):
-    post = get_object_or_404(Post, pk=post_id)
-    context = {
-        'post': post,
-    }
-    return render(request, 'app_primer/post_detail.html', context)
+    # тут переопределили context_object_name = 'posts'
+    # выводим не все посты а пользователя adm
+    # def get_queryset(self):
+    #     return Post.objects.filter(author__username='adm')
 
 
+#---------------------------------------------------------------------
+# def category_posts(request, slug):
+#     category = get_object_or_404(Category, slug=slug)
+#     category_posts = category.posts.all()
+#     context = {
+#         'category_posts': category_posts,
+#     }
+#     return render(request, 'app_primer/category.html', context)
+
+class CategoryPosts(ListView):
+    model = Category
+    template_name = 'app_primer/category.html'
+    context_object_name = 'category_posts'
+    def get_queryset(self):
+        # Получаем категорию по slug из URL-адреса
+        category = get_object_or_404(Category, slug=self.kwargs['slug'])
+        # Возвращаем все записи (посты), связанные с этой категорией
+        return category.posts.all()
+
+
+#---------------------------------------------------------------------
+# def post_detail(request, post_id):
+#     post = get_object_or_404(Post, pk=post_id)
+#     context = {
+#         'post': post,
+#     }
+#     return render(request, 'app_primer/post_detail.html', context)
+
+class PostDetail(DetailView):
+    model = Post
+    template_name = 'app_primer/post_detail.html'
+
+
+
+#---------------------------------------------------------------------
 def profile(request, username):
     author = get_object_or_404(User, username=username)
     posts_author = author.posts.all()

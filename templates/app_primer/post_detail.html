@@ -39,17 +39,17 @@
     </style>
 
  <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="post-details">
+     <div class="row justify-content-center">
+         <div class="col-md-8">
+             <div class="post-details">
                     <div class="category">Категория: {{ post.categories }}</div>
                     <div class="title">Статья: {{ post.title }}</div>
                     <div class="text">{{ post.text }}</div>
                     <div class="pub-date">Опубликовано: {{ post.pub_date|date:"d E Y" }}</div>
                     <div class="author">Автор: {{ post.author }}</div>
-                </div>
-            </div>
+             </div>
         </div>
+</div>
 
 {% endblock %}
 

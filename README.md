@@ -586,6 +586,22 @@ SELECT "app_primer_category"."id",
 ```
 </details>
 
+
+[//]: # (--------------------------------------------------------------)
+[//]: # (8. Написать несколько запросов с использованием select_related и prefetch_related.)
+<details>
+<summary>
+<strong> 
+9. Вывести посты в которых содержатся слова "других", "проце", "испол", "автом"
+</strong>
+</summary>
+
+```python
+Post.objects.filter(text__contains="других")
+```
+</details>
+
+
 ```python
 
 ```

@@ -68,11 +68,28 @@ class PostDetail(DetailView):
 
 
 #---------------------------------------------------------------------
-def profile(request, username):
-    author = get_object_or_404(User, username=username)
-    posts_author = author.posts.all()
-    context = {
-        'author': author,
-        'posts_author': posts_author
-    }
-    return render(request, 'app_primer/profile.html', context)
+# def profile(request, username):
+#     author = get_object_or_404(User, username=username)
+#     posts_author = author.posts.all()
+#     context = {
+#         'author': author,
+#         'posts_author': posts_author
+#     }
+#     return render(request, 'app_primer/profile.html', context)
+
+
+class Profile(DetailView):
+    model = User
+    template_name = 'app_primer/profile.html'
+    context_object_name = 'author'
+
+    def get_object(self, queryset=None):
+        username = self.kwargs.get('username')
+        return get_object_or_404(User, username=username)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        author = self.object
+        posts_author = author.posts.all()
+        context['posts_author'] = posts_author
+        return context

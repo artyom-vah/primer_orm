@@ -1,24 +1,62 @@
 {% extends 'base.html' %}
-    <title>
-        {% block title %}
-            Все посты
-        {% endblock %}
-    </title>
+<title>
+    {% block title %}
+    Все посты
+    {% endblock %}
+</title>
 {% block content %}
 
-  Все посты:
-  {% for post in posts %}
-    <ul><li>  {{ post }}</li></ul>
-  {% endfor %}
+Все посты:
+<div class="container">
+    <h2>Все посты:</h2>
+    <ul class="list-group">
+        {% for post in posts %}
+        <li class="list-group-item">{{ post }}</li>
+        {% endfor %}
+    </ul>
 
-  Все пользователи:
-  {% for user in all_users %}
-  <ul><li>{{ user.pk }}) {{ user }}</li></ul>
-  {% endfor %}
+    <h2>Все пользователи:</h2>
+    <ul class="list-group">
+        {% for user in all_users %}
+        <li class="list-group-item">{{ user.pk }}) {{ user }}</li>
+        {% endfor %}
+    </ul>
 
-  Все категории:
-  {% for category in categories %}
-  <ul><li>{{ category.pk }}) {{ category.title }}</li></ul>
-  {% endfor %}
+    <h2>Все категории:</h2>
+    <ul class="list-group">
+        {% for category in categories %}
+        <li class="list-group-item">{{ category.pk }}) {{ category.title }}</li>
+        {% endfor %}
+    </ul>
+</div>
 
+<br>
+
+<div class="container">
+    <h2>Общая таблица:</h2>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Название поста</th>
+            <th>Текст поста</th>
+            <th>Дата публикации</th>
+            <th>Автор</th>
+            <th>Категория</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for post in posts %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ post.title|truncatechars:20 }}</td>
+            <td>{{ post.text|truncatechars:20 }}</td>
+            <td>{{ post.pub_date }}</td>
+            <td>{{ post.author }}</td>
+            <td>{{ post.categories.title }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

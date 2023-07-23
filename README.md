@@ -628,20 +628,41 @@ Post.objects.filter(Q(pk__gt=5) & Q(pk__lt=10))
 
 
 [//]: # (--------------------------------------------------------------)
-[//]: # (11. Вывести посты у которых значение id больше 5 и меньше 10.)
+[//]: # (11. Вывести 1й и последний пост.)
 <details>
 <summary>
 <strong> 
-11. Вывести посты у которых значение id больше 5 и меньше 10
+11. Вывести 1й и последний пост.
 </strong>
 </summary>
 
 ```python
-Post.objects.filter(pk__gt=5).filter(pk__lt=10)
+Post.objects.first()
+```
+```python
+Post.objects.last()
+```
+</details>
+
+[//]: # (--------------------------------------------------------------)
+[//]: # (12. Вывести посты 1,5,10,15 одним запросом.)
+<details>
+<summary>
+<strong> 
+12. Вывести посты 1,5,10,15 одним запросом.
+</strong>
+</summary>
+
+```python
+Post.objects.filter(pk__in=[1,5,10,15])
+```
+```python
+Post.objects.last()
 ```
 
 
 </details>
+
 
 ```python
 

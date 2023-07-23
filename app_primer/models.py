@@ -31,7 +31,7 @@ class Post(models.Model):
         verbose_name_plural = 'Посты'
 
     def __str__(self):
-        return f"{self.pk}) {self.title}:  {self.text[:30]}"
+        return f"{self.pk}) {self.title}:  {self.text[:20]}"
 
 
 class Comment(models.Model):

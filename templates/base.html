@@ -8,16 +8,46 @@
         {% endblock %}
     </title>
 </head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
+    <a class="navbar-brand" href="{% url 'app_primer:all_posts' %}"><b>Все посты</b></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarsExample09" aria-controls="navbarsExample09"
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarsExample09">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'app_primer:all_posts' %}">Главная</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link">Про нас</a>
+            </li>
+        </ul>
+    </div>
+    <div class="navbar nav">
+    </div>
+</nav>
 <ul>
+    <div class="row">
+        <div class="col md-8">
 
-    <li><a href="{% url 'app_primer:all_posts' %}">Список всех постов</a></li>
-
+            {% if messages %}
+            {% for mess in messages %}
+            <div class="alert alert-success">
+                {{ mess }}
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
 </ul>
-    <body>
-         <div class="container">
-            {% block content %}
-            {% endblock %}
-         </div>
-    </body>
 
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+
+</body>
 </html>

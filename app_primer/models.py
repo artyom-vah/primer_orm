@@ -1,7 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
-
 User = get_user_model()
 
 
@@ -23,7 +22,8 @@ class Post(models.Model):
     text = models.TextField(verbose_name='Текст поста')
     pub_date = models.DateTimeField(verbose_name='Дата публикации', auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts', verbose_name='Автор')
-    categories = models.ForeignKey(Category, on_delete=models.SET_NULL, related_name='posts', blank=True, null=True, verbose_name='Категория')
+    categories = models.ForeignKey(Category, on_delete=models.SET_NULL, related_name='posts', blank=True, null=True,
+                                   verbose_name='Категория')
 
     class Meta:
         ordering = ('pub_date',)
@@ -36,7 +36,8 @@ class Post(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments', verbose_name='Комментарий поста')
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments', verbose_name='Автор комментария')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments',
+                               verbose_name='Автор комментария')
     text = models.TextField(verbose_name='Текст комментария')
 
     class Meta:
@@ -49,7 +50,8 @@ class Comment(models.Model):
 
 class Follow(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follower', verbose_name='Подписчик')
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following', verbose_name='Подписка на этого автора')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following',
+                               verbose_name='Подписка на этого автора')
 
     class Meta:
         constraints = [

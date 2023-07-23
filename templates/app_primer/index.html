@@ -6,6 +6,20 @@
 </title>
 {% block content %}
 
+{% for post in posts %}
+<div class="alert alert-light">
+    <h1>{{ post.title }}</h1>
+    <p> {{ post.text }} </p>
+
+    <div class="col-md-10">
+        <span class="text-muted"> <b>Публикация: </b>{{ post.pub_date|date:"j F Y, время: H:i:s" }} </span>
+        <p><b>Автор:</b>
+            <mark>{{ post.author }}</mark>
+        </p>
+    </div>
+</div>
+{% endfor %}
+
 Все посты:
 <div class="container">
     <h2>Все посты:</h2>

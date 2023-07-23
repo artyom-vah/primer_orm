@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,32 +8,44 @@
         {% block title %}
         {% endblock %}
     </title>
+    <link rel="stylesheet" href="{% static 'app_primer/main.css' %}">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
-    <a class="navbar-brand" href="{% url 'app_primer:all_posts' %}"><b>Все посты</b></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarsExample09" aria-controls="navbarsExample09"
-            aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarsExample09">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'app_primer:all_posts' %}">Главная</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link">Про нас</a>
-            </li>
-        </ul>
-    </div>
-    <div class="navbar nav">
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-expand-lg" aria-label="Eleventh navbar example">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'app_primer:all_posts' %}"><b>Все посты</b></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample09"
+                aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExample09">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'app_primer:all_posts' %}">Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'app_primer:contacti' %}">Про нас</a>
+                </li>
+            </ul>
+        </div>
+        <div class="navbar nav">
+            {% if user.is_authenticated %}
+            <a href="{% url 'profile' %}" class="btn btn-outline-secondary mr-2">Профиль</a>
+            <a href="{% url 'exit' %}" class="btn btn-outline-secondary">Выйти</a>
+            {% else %}
+            <a href="{% url 'reg' %}" class="btn btn-outline-secondary mr-2">Регистрация</a>
+            <a href="{% url 'user' %}" class="btn btn-outline-secondary ml-2">Войти</a>
+            {% endif %}
+        </div>
     </div>
 </nav>
+
 <ul>
     <div class="row">
         <div class="col md-8">
-
             {% if messages %}
             {% for mess in messages %}
             <div class="alert alert-success">

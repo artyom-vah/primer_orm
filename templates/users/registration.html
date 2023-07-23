@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
     <title>
         {% block title %}Регистрация пользователей{% endblock %}
     </title>
@@ -8,10 +9,10 @@
       <h3>Регистрация на сайте</h3>
       <form method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
-
-         <button type="submit" class="btn btn-outline-warning">Зарегистрироваться</button>
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-outline-warning">Зарегистрироваться</button>
       </form>
+      <hr> Уже зарегистрированы? <a href="">Войти в личный кабинет</a>
     </div>
 
 {% endblock %}

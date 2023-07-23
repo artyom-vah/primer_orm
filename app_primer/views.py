@@ -33,6 +33,11 @@ class AllPosts(ListView):
     #     return Post.objects.filter(author__username='adm')
 
 
+def contacti(request):
+    return render(request, 'app_primer/contacti.html', {
+                      'title': 'Страница про нас.',
+    })
+
 #---------------------------------------------------------------------
 # def category_posts(request, slug):
 #     category = get_object_or_404(Category, slug=slug)
@@ -78,18 +83,18 @@ class PostDetail(DetailView):
 #     return render(request, 'app_primer/profile.html', context)
 
 
-class Profile(DetailView):
-    model = User
-    template_name = 'app_primer/profile.html'
-    context_object_name = 'author'
-
-    def get_object(self, queryset=None):
-        username = self.kwargs.get('username')
-        return get_object_or_404(User, username=username)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        author = self.object
-        posts_author = author.posts.all()
-        context['posts_author'] = posts_author
-        return context
+# class Profile(DetailView):
+#     model = User
+#     template_name = 'app_primer/profile.html'
+#     context_object_name = 'author'
+#
+#     def get_object(self, queryset=None):
+#         username = self.kwargs.get('username')
+#         return get_object_or_404(User, username=username)
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         author = self.object
+#         posts_author = author.posts.all()
+#         context['posts_author'] = posts_author
+#         return context

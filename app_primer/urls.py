@@ -1,5 +1,6 @@
 from django.urls import path
 # from .views import index, category_posts, post_detail, profile
+
 from .views import AllPosts, CategoryPosts, PostDetail, contacti
 
 app_name = 'app_primer'

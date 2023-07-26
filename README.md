@@ -702,6 +702,19 @@ User.objects.get(username='adm').post_set.all()
 ```
 </details>
 
+[//]: # (--------------------------------------------------------------)
+[//]: # (14. Вывести Min, Max, Avg, Sum, Count id-шников постов автора adm, Артемий через aggregate)
+<details>
+<summary>
+<strong> 
+14. Вывести Min, Max, Avg, Sum, Count id-шников постов автора adm, Артемий через aggregate
+</strong>
+</summary>
+
+```python
+Post.objects.aggregate(Min('pk'), Max('pk'), Avg('pk'), Sum('pk'), Count('pk'))
+```
+</details>
 
 
 ```python

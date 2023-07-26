@@ -656,12 +656,35 @@ Post.objects.last()
 ```python
 Post.objects.filter(pk__in=[1,5,10,15])
 ```
+</details>
+
+[//]: # (--------------------------------------------------------------)
+[//]: # (13. Вывести посты пользователя adm, Anton и Артемий через related_name, а также через related_name по умолчанию.)
+<details>
+<summary>
+<strong> 
+13. Вывести посты пользователя adm, Anton и Артемий через related_name, а также через related_name по умолчанию.
+</strong>
+</summary>
+
 ```python
-Post.objects.last()
+art = User.objects.get(pk=1)
+```
+* _или так_
+```python
+adm = User.objects.get(username='adm')
+```
+* _вывод если явно указан related_name в модели related_name = 'posts'_
+```python
+adm.posts.all()
+```
+* _вывод по умолчанию, если явно не указан related_name в модели_
+```python
+adm.post_set.all()
 ```
 
-
 </details>
+
 
 
 ```python

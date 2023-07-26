@@ -12,7 +12,6 @@
 </head>
 <body>
 
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-expand-lg" aria-label="Eleventh navbar example">
     <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'app_primer:all_posts' %}"><b>Все посты</b></a>
@@ -47,11 +46,11 @@
     <div class="row">
         <div class="col md-8">
             {% if messages %}
-            {% for mess in messages %}
-            <div class="alert alert-success">
-                {{ mess }}
-            </div>
-            {% endfor %}
+                {% for mess in messages %}
+                <div class="alert alert-success">
+                    {{ mess }}
+                </div>
+                {% endfor %}
             {% endif %}
         </div>
     </div>

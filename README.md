@@ -707,7 +707,27 @@ User.objects.get(username='adm').post_set.all()
 <details>
 <summary>
 <strong> 
-14. Вывести Min, Max, Avg, Sum, Count id-шников постов автора adm, Артемий через aggregate
+14. Через related_name вывести посты пользователя adm (Николай) с категорией Дизайн (Тестирование)
+</strong>
+</summary>
+
+```python
+adm=User.objects.get(username="adm")
+```
+
+```python
+adm.posts.filter(categories__title="Дизайн")
+```
+
+
+</details>
+
+[//]: # (--------------------------------------------------------------)
+[//]: # (15. Вывести Min, Max, Avg, Sum, Count id-шников постов автора adm, Артемий через aggregate)
+<details>
+<summary>
+<strong> 
+15. Вывести Min, Max, Avg, Sum, Count id-шников постов автора adm, Артемий через aggregate
 </strong>
 </summary>
 

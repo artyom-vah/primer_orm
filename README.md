@@ -491,7 +491,7 @@ Post.objects.all().exclude(author__username="adm", categories__title="Дизай
 <details>
 <summary>
 <strong> 
-7. Вывести id постов и их сумму
+7. Вывести id постов и их сумму.
 </strong>
 </summary>
 
@@ -596,7 +596,7 @@ SELECT "app_primer_category"."id",
 <details>
 <summary>
 <strong> 
-9. Вывести посты в которых содержатся слова "других", "проце", "испол", "автом"
+9. Вывести посты в которых содержатся слова "других", "проце", "испол", "автом".
 </strong>
 </summary>
 
@@ -611,7 +611,7 @@ Post.objects.filter(text__contains="других")
 <details>
 <summary>
 <strong> 
-10. Вывести посты у которых значение id больше 5 и меньше 10
+10. Вывести посты у которых значение id больше 5 и меньше 10.
 </strong>
 </summary>
 
@@ -707,7 +707,7 @@ User.objects.get(username='adm').post_set.all()
 <details>
 <summary>
 <strong> 
-14. Через related_name вывести посты пользователя adm (Николай) с категорией Дизайн (Тестирование)
+14. Через related_name вывести посты пользователя adm (Николай) с категорией Дизайн (Тестирование).
 </strong>
 </summary>
 
@@ -718,8 +718,6 @@ adm=User.objects.get(username="adm")
 ```python
 adm.posts.filter(categories__title="Дизайн")
 ```
-
-
 </details>
 
 [//]: # (--------------------------------------------------------------)
@@ -733,6 +731,24 @@ adm.posts.filter(categories__title="Дизайн")
 
 ```python
 Post.objects.aggregate(Min('pk'), Max('pk'), Avg('pk'), Sum('pk'), Count('pk'))
+```
+</details>
+
+
+[//]: # (--------------------------------------------------------------)
+[//]: # (16. Используя values вывести название статить и автора у постов с id 1, 5, 22)
+<details>
+<summary>
+<strong> 
+16. Используя values вывести название статьи и автора у постов с id 1, 5, 22
+</strong>
+</summary>
+
+```python
+Post.objects.values("title", "author__username").get(pk=5)
+```
+```python
+Post.objects.values("title", "author__username").get(pk=22)
 ```
 </details>
 

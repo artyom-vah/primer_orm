@@ -20,11 +20,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'crispy_forms',
-    'crispy_bootstrap5',
     'app_primer.apps.AppPrimerConfig',
-    'api.apps.ApiConfig',
-    'users.apps.UsersConfig',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -33,17 +29,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-    'rest_framework',
 ]
 
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ],
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ]
-}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -129,9 +116,3 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-CRISPY_TEMPLATE_PACK = "bootstrap5"
-
-LOGIN_REDIRECT_URL = 'app_primer:all_posts'
-LOGIN_URL = 'user'

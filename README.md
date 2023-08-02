@@ -1,25 +1,22 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
-
-
 ## Описание:
+
 Для тренеровки написания запросов на Django ORM. Запросы буду написаны внизу этого файла
 
-
-
 ### **Стек:**
+
 ![python version](https://img.shields.io/badge/Python-3.11-brightgreen)   ![django version](https://img.shields.io/badge/Django-4.2.3-brightgreen)
 
-
 ### **Дополнительные библиотеки:**
+
 [![django-extensions](https://img.shields.io/badge/django--extensions-3.2.3-blue)](https://pypi.org/project/django-extensions/3.2.3/)
 [![ipython](https://img.shields.io/badge/ipython-8.14.0-blue)](https://pypi.org/project/ipython/8.14.0/)
 
-
-
-
 ### **Запуск проекта в dev-режиме**
+
 Инструкция ориентирована на операционную систему Windows и утилиту git bash.<br/>
+
 #### Для прочих инструментов используйте аналоги команд для вашего окружения.
 
 1. Клонируйте репозиторий и перейдите в него в командной строке:
@@ -29,32 +26,45 @@ git clone https://github.com/artyom-vah/primer_orm.git
 ```
 
 2. Установите и активируйте виртуальное окружение
+
 ```bash
 python -m venv venv
 ```
+
 ```bash
 source venv/Scripts/activate
 ```
+
 или сразу так:
+
 ```bash
 python -m venv venv && . venv/Scripts/activate
 ```
-3. Обновите pip 
+
+3. Обновите pip
+
 ```bash
 python -m pip install --upgrade pip
 ```
+
 4. Установите зависимости из файла requirements.txt
+
 ```bash
 pip install -r requirements.txt
 ```
+
 5. В папке с файлом manage.py создайте и выполните миграции:
+
 ```bash
 python manage.py makemigrations
 ```
+
 ```bash
 python manage.py migrate
 ```
+
 6. Создайте суперюзера 'укажите имя пользователя, адрес электронной почты (необязательно), и Password'
+
 ```bash
 python manage.py createsuperuser
 ```
@@ -69,7 +79,9 @@ python manage.py createsuperuser
 </summary>
 
 ### 1. Создание объектов:
+
 #### 1.1 создание пользователя
+
 ```python
 User.objects.create_user(username='Artyom', password='1234')
 ```
@@ -77,9 +89,12 @@ User.objects.create_user(username='Artyom', password='1234')
 ```python
 user2 = User.objects.create_user(username='Николай', password='1234')
 ```
+
 #### 1.2 создание категорий
+
 ```python
- Category.objects.create(title='программирование', slug='programming', description='Описание категории - программирование')
+ Category.objects.create(title='программирование', slug='programming',
+                         description='Описание категории - программирование')
 ```
 
 ```python
@@ -101,22 +116,30 @@ category = Category.objects.get(title='Программирование')
 ```
 
 ```python
-post1 = Post.objects.create(title='Python', text='Python - интерпретируемый язык программирования высокого уровня с динамической типизацией. Он обладает простым и понятным синтаксисом.', author=author, categories=category)
+post1 = Post.objects.create(title='Python',
+                            text='Python - интерпретируемый язык программирования высокого уровня с динамической типизацией. Он обладает простым и понятным синтаксисом.',
+                            author=author, categories=category)
 ```
 
 * _либо так:_
+
 ```python
-post2 = Post.objects.create(title='C#',text ='C# язык программирования, разработанный компанией Microsoft. Он является объектно-ориентированным языком с широкими возможностямиюю .', author=User.objects.get(username='Артемий'), categories=Category.objects.get(title='Программирование'))
+post2 = Post.objects.create(title='C#',
+                            text='C# язык программирования, разработанный компанией Microsoft. Он является объектно-ориентированным языком с широкими возможностямиюю .',
+                            author=User.objects.get(username='Артемий'),
+                            categories=Category.objects.get(title='Программирование'))
 ```
 
 ## 2. Изменение объектов:
+
 #### 2.1 изменение пользователя
+
 ```python
 user1 = User.objects.get(pk=2)
 ```
 
 ```python
-user1.username= 'Артемий'
+user1.username = 'Артемий'
 ```
 
 ```python
@@ -132,6 +155,7 @@ user1.save()
 ```
 
 #### 1.2 изменение категорий
+
 ```python
 c1 = Category.objects.get(title='программирование')
 ```
@@ -149,16 +173,18 @@ c1.save()
 ```
 
 ## 3. Выборка разных объектов:
+
 ```python
 Category.objects.all()
 ```
 
 ```python 
 # будет выведено
-<QuerySet [<Category: Программирование>, <Category: Аналитика>, <Category: Дизайн>]>
+< QuerySet[ < Category: Программирование >, < Category: Аналитика >, < Category: Дизайн >] >
 ```
 
 * _Вывод постов определенного пользователя_
+
 ```python
 author = User.objects.get(username='adm')
 ```
@@ -168,13 +194,14 @@ posts_adm = Post.objects.filter(author=author)
 ```
 
 * _либо так:_
+
 ```python
  posts_adm = Post.objects.filter(author=User.objects.get(username='adm'))
 ```
 
 ```python
 # будет выведено (то что указано в модели в методе __str__)
-<QuerySet [<Post: Kotlin>, <Post: Ruby>, <Post: Java>, <Post: Python>]>
+< QuerySet[ < Post: Kotlin >, < Post: Ruby >, < Post: Java >, < Post: Python >] >
 ```
 
 ```python
@@ -183,24 +210,27 @@ posts_adm = Post.objects.filter(author=author)
 
 ```python
 # будет выведено (то что указано в модели в методе __str__)
-<QuerySet [<Post: Go>, <Post: JavaScript>, <Post: C++>]>
+< QuerySet[ < Post: Go >, < Post: JavaScript >, < Post: C + + >] >
 ```
 
 * _Вывод постов по определенной категории ( тут вывод постов по дизайну)_
+
 ```python
-category_disign =  Category.objects.get(title='Дизайн')
+category_disign = Category.objects.get(title='Дизайн')
 ```
 
 ```python
-category_disign =  Post.objects.filter(categories=category_disign)
+category_disign = Post.objects.filter(categories=category_disign)
 ```
 
 * _либо так:_
+
 ```python
-post_category_disign  = Post.objects.filter(categories=Category.objects.get(title='Дизайн'))
+post_category_disign = Post.objects.filter(categories=Category.objects.get(title='Дизайн'))
 ```
 
 * _Вывод постов по определенному автору и по определенной категории_
+
 ```python
 artemiy = User.objects.get(username='Артемий')
 ```
@@ -213,12 +243,16 @@ programming = Category.objects.get(title='Программирование')
 posts_artemiy_programming = Post.objects.filter(author=artemiy, categories=programming)
 ```
 
-* _либо так: (в данном слуе делает 2 запроса к бд, сначала выбирает user Артемий, потом выбирается категория Программирование)_
+* _либо так: (в данном слуе делает 2 запроса к бд, сначала выбирает user Артемий, потом выбирается категория
+  Программирование)_
+
 ```python
-posts_artemiy_programming = Post.objects.filter(author=User.objects.get(username='Артемий'), categories=Category.objects.get(title='Программирование'))
+posts_artemiy_programming = Post.objects.filter(author=User.objects.get(username='Артемий'),
+                                                categories=Category.objects.get(title='Программирование'))
 ```
 
-* _Выполнение запроса с использованием select_related предыдущего примера_ 
+* _Выполнение запроса с использованием select_related предыдущего примера_
+
 ```python
 artemiy = User.objects.get(username='Артемий')
 ```
@@ -228,14 +262,41 @@ programming = Category.objects.get(title='Программирование')
 ```
 
 ```python
-posts_artemiy_programming = Post.objects.select_related('author', 'categories').filter(author=artemiy, categories=programming)
+posts_artemiy_programming = Post.objects.select_related('author', 'categories').filter(author=artemiy,
+                                                                                       categories=programming)
 ```
 
 ```python
 # будет такой результат
- [<Post: Стратегии тестирования>, <Post: Тестирование пользовательского интерфейса>, <Post: Автоматизация тестирования'>, <Post: Виды тестирования>, <Post: Введение в тестирование>, <Post: Принятие данных на основе аналитики>, <Post: Машинное обучение в аналитике>, <Post: Визуализация данных>, <Post: А
-нализ данных и статистика>, <Post: Методы сбора данных для аналитики>, <Post: Введение в аналитику данных>, <Post: Тенденции в дизайне>, <Post: Эффективные пользовательские интерфейсы>, <Post: Типографика в дизайне>, <Post: Цветовая палитра в дизайне>, <Post: Основные принципы дизайна>, <Post: Тестирование>, <P
-ost: Kotlin>, <Post: Go>, <Post: SQL>, '...(remaining elements truncated)
+[ < Post: Стратегии
+тестирования >, < Post: Тестирование
+пользовательского
+интерфейса >, < Post: Автоматизация
+тестирования
+'>, <Post: Виды тестирования>, <Post: Введение в тестирование>, <Post: Принятие данных на основе аналитики>, <Post: Машинное обучение в аналитике>, <Post: Визуализация данных>, <Post: А
+нализ
+данных
+и
+статистика >, < Post: Методы
+сбора
+данных
+для
+аналитики >, < Post: Введение
+в
+аналитику
+данных >, < Post: Тенденции
+в
+дизайне >, < Post: Эффективные
+пользовательские
+интерфейсы >, < Post: Типографика
+в
+дизайне >, < Post: Цветовая
+палитра
+в
+дизайне >, < Post: Основные
+принципы
+дизайна >, < Post: Тестирование >, < P
+ost: Kotlin >, < Post: Go >, < Post: SQL >, '...(remaining elements truncated)
 ```
 
 ```python
@@ -254,9 +315,35 @@ posts = Post.objects.select_related('author', 'categories').all()
 
 ```python
 # будет такой результат
-<QuerySet [<Post: Стратегии тестирования>, <Post: Тестирование пользовательского интерфейса>, <Post: Автоматизация тестирования'>, <Post: Виды тестирования>, <Post: Введение в тестирование>, <Post: Принятие данных на основе аналитики>, <Post: Машинное обучение в аналитике>, <Post: Визуализация данных>, <Post: А
-нализ данных и статистика>, <Post: Методы сбора данных для аналитики>, <Post: Введение в аналитику данных>, <Post: Тенденции в дизайне>, <Post: Эффективные пользовательские интерфейсы>, <Post: Типографика в дизайне>, <Post: Цветовая палитра в дизайне>, <Post: Основные принципы дизайна>, <Post: Тестирование>, <P
-ost: Kotlin>, <Post: Go>, <Post: SQL>, '...(remaining elements truncated)...']>
+< QuerySet[ < Post: Стратегии
+тестирования >, < Post: Тестирование
+пользовательского
+интерфейса >, < Post: Автоматизация
+тестирования
+'>, <Post: Виды тестирования>, <Post: Введение в тестирование>, <Post: Принятие данных на основе аналитики>, <Post: Машинное обучение в аналитике>, <Post: Визуализация данных>, <Post: А
+нализ
+данных
+и
+статистика >, < Post: Методы
+сбора
+данных
+для
+аналитики >, < Post: Введение
+в
+аналитику
+данных >, < Post: Тенденции
+в
+дизайне >, < Post: Эффективные
+пользовательские
+интерфейсы >, < Post: Типографика
+в
+дизайне >, < Post: Цветовая
+палитра
+в
+дизайне >, < Post: Основные
+принципы
+дизайна >, < Post: Тестирование >, < P
+ost: Kotlin >, < Post: Go >, < Post: SQL >, '...(remaining elements truncated)...'] >
 ```
 
 ```python
@@ -269,16 +356,17 @@ for post in posts:
 ```
 
 * _Вывести автора который написал поста о "Python"_
+
 ```python
 Post.objects.get(title="Python").author
 ```
 
 </details>
 
-
-
 ## Задания:
+
 [//]: # (--------------------------------------------------------------)
+
 [//]: # (1. Создание любой объект моделей User, Category, Post.)
 <details>
 <summary>
@@ -290,26 +378,36 @@ Post.objects.get(title="Python").author
 ```python
 User.objects.create_user(username='Artyom', password='1234')
 ```
+
 ```python
-Category.objects.create(title='программирование', slug='programming', description='Описание категории - программирование')
+Category.objects.create(title='программирование', slug='programming',
+                        description='Описание категории - программирование')
 ```
 
 ```python
-Post.objects.create(title='Python', text='Python - интерпретируемый язык программирования высокого уровня с динамической типизацией. Он обладает простым и понятным синтаксисом.', author=author, categories=category)
+Post.objects.create(title='Python',
+                    text='Python - интерпретируемый язык программирования высокого уровня с динамической типизацией. Он обладает простым и понятным синтаксисом.',
+                    author=author, categories=category)
 ```
+
 * _удаление объектов:_
+
 ```python
 User.objects.create_user(username="test", password="test")
 ```
+
 ```python
 del_test_user = User.objects.get(pk=5).delete()
 ```
+
 ```python
 User.objects.get(username="test").delete()
 ```
+
 </details>
 
 [//]: # (--------------------------------------------------------------)
+
 [//]: # (2. Вывести  объекты моделей User, Category, Post и их  количество.)
 <details>
 <summary>
@@ -333,9 +431,11 @@ Category.objects.all().count()
 ```python
 Post.objects.all().count()
 ```
+
 </details>
 
 [//]: # (--------------------------------------------------------------)
+
 [//]: # (3. Вывести посты определенного пользователя и их количество.)
 <details>
 <summary>
@@ -361,7 +461,8 @@ class Post(models.Model):
     text = models.TextField(verbose_name='Текст поста')
     pub_date = models.DateTimeField(verbose_name='Дата публикации', auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts', verbose_name='Автор')
-    categories = models.ForeignKey(Category, on_delete=models.SET_NULL, related_name='posts', blank=True, null=True, verbose_name='Категория')
+    categories = models.ForeignKey(Category, on_delete=models.SET_NULL, related_name='posts', blank=True, null=True,
+                                   verbose_name='Категория')
 ```
 
 ```python
@@ -373,9 +474,11 @@ posts_adm = adm.posts.all()
 ```
 
 * _в случае если related_name не указан то можно использовать название самаой модели (+set) - post_set_
+
 ```python
 adm = User.objects.get(pk=1)
 ```
+
 ```python
 posts_adm = adm.post_set.all()
 ```
@@ -383,6 +486,7 @@ posts_adm = adm.post_set.all()
 </details>
 
 [//]: # (--------------------------------------------------------------)
+
 [//]: # (4. Вывести посты определенного пользователя и их количество.)
 <details>
 <summary>
@@ -398,14 +502,19 @@ Post.objects.filter(categories__title="Программирование")
 ```python
 Post.objects.filter(categories__title="Программирование").count()
 ```
+
 * _через related_name_
+
 ```python
 programming = Category.objects.get(title='Программирование')
 ```
+
 ```python
 programming.posts.all()
 ```
+
 * _также считаем количество через related_name_
+
 ```python
 programming.posts.all().count()
 ```
@@ -413,6 +522,7 @@ programming.posts.all().count()
 </details>
 
 [//]: # (--------------------------------------------------------------)
+
 [//]: # (5. Вывести посты определенного пользователя и определенной категории.)
 <details>
 <summary>
@@ -444,9 +554,11 @@ Post.objects.filter(author=user, categories=category)
 ```python
 Post.objects.filter(Q(author=user) & Q(categories=category)) 
 ```
+
 </details>
 
 [//]: # (--------------------------------------------------------------)
+
 [//]: # (6. Вывести посты пользователей adm, Николай, исключая категорию Аналитика, Дизайн.)
 <details>
 <summary>
@@ -456,37 +568,46 @@ Post.objects.filter(Q(author=user) & Q(categories=category))
 </summary>
 
 * _выводим все кроме аналитики или дизайна_
+
 ```python
-Post.objects.all().exclude(categories__title = 'Аналитика')
+Post.objects.all().exclude(categories__title='Аналитика')
 ```
 
 ```python
-Post.objects.all().exclude(categories__title = 'Дизайн')
+Post.objects.all().exclude(categories__title='Дизайн')
 ```
+
 * _выводим все кроме аналитики и дизайна_
 
 ```python
 programming = Category.objects.get(title='Программирование')
 ```
+
 ```python
 testing = Category.objects.get(title='Тестирование')
 ```
+
 ```python
 Post.objects.exclude(categories__in=[programming, testing])
 ```
 
 * _выводим все посты кроме постов пользователя adm_
+
 ```python
 Post.objects.all().exclude(author__username="adm")
 ```
+
 * _выводим все посты кроме постов пользователя adm категории дизайн_
+
 ```python
 Post.objects.all().exclude(author__username="adm", categories__title="Дизайн")
 ```
+
 </details>
 
 
 [//]: # (--------------------------------------------------------------)
+
 [//]: # (7. Вывести id постов и их сумму.)
 <details>
 <summary>
@@ -498,9 +619,11 @@ Post.objects.all().exclude(author__username="adm", categories__title="Дизай
 ```python
 post_ids = Post.objects.values_list('id', flat=True).count()
 ```
+
 ```python
 total_sum = sum(post_ids)
 ```
+
 ```python
 sum(Post.objects.values_list('id', flat=True))
 ```
@@ -508,6 +631,7 @@ sum(Post.objects.values_list('id', flat=True))
 </details>
 
 [//]: # (--------------------------------------------------------------)
+
 [//]: # (8. Написать несколько запросов с использованием select_related и prefetch_related.)
 <details>
 <summary>
@@ -517,81 +641,165 @@ sum(Post.objects.values_list('id', flat=True))
 </summary>
 
 ```python
-Post.objects.select_related('author','categories').all()
+Post.objects.select_related('author', 'categories').all()
 ```
+
 ```python
 # вот пример select_related, таблицы: post, auth_user, category в одном запросе: 
- SELECT "app_primer_post"."id",
-       "app_primer_post"."title",
-       "app_primer_post"."text",
-       "app_primer_post"."pub_date",
-       "app_primer_post"."author_id",
-       "app_primer_post"."categories_id",
-       "auth_user"."id",
-       "auth_user"."password",
-       "auth_user"."last_login",
-       "auth_user"."is_superuser",
-       "auth_user"."username",
-       "auth_user"."first_name",
-       "auth_user"."last_name",
-       "auth_user"."email",
-       "auth_user"."is_staff",
-       "auth_user"."is_active",
-       "auth_user"."date_joined",
-       "app_primer_category"."id",
-       "app_primer_category"."title",
-       "app_primer_category"."slug",
-       "app_primer_category"."description"
-  FROM "app_primer_post"
- INNER JOIN "auth_user"
-    ON ("app_primer_post"."author_id" = "auth_user"."id")
-  LEFT OUTER JOIN "app_primer_category"
-    ON ("app_primer_post"."categories_id" = "app_primer_category"."id")
- ORDER BY "app_primer_post"."pub_date" ASC
- LIMIT 21
+SELECT
+"app_primer_post".
+"id",
+"app_primer_post".
+"title",
+"app_primer_post".
+"text",
+"app_primer_post".
+"pub_date",
+"app_primer_post".
+"author_id",
+"app_primer_post".
+"categories_id",
+"auth_user".
+"id",
+"auth_user".
+"password",
+"auth_user".
+"last_login",
+"auth_user".
+"is_superuser",
+"auth_user".
+"username",
+"auth_user".
+"first_name",
+"auth_user".
+"last_name",
+"auth_user".
+"email",
+"auth_user".
+"is_staff",
+"auth_user".
+"is_active",
+"auth_user".
+"date_joined",
+"app_primer_category".
+"id",
+"app_primer_category".
+"title",
+"app_primer_category".
+"slug",
+"app_primer_category".
+"description"
+FROM
+"app_primer_post"
+INNER
+JOIN
+"auth_user"
+ON("app_primer_post".
+"author_id" = "auth_user".
+"id")
+LEFT
+OUTER
+JOIN
+"app_primer_category"
+ON("app_primer_post".
+"categories_id" = "app_primer_category".
+"id")
+ORDER
+BY
+"app_primer_post".
+"pub_date"
+ASC
+LIMIT
+21
 ```
+
 ```python
-Post.objects.prefetch_related('author','categories').all()
+Post.objects.prefetch_related('author', 'categories').all()
 ```
+
 ```python
 # вот пример prefetch_related, таблицы: post, auth_user, category в 3х запросах: 
-SELECT "app_primer_post"."id",
-       "app_primer_post"."title",
-       "app_primer_post"."text",
-       "app_primer_post"."pub_date",
-       "app_primer_post"."author_id",
-       "app_primer_post"."categories_id"
-  FROM "app_primer_post"
- ORDER BY "app_primer_post"."pub_date" ASC
- LIMIT 21
+SELECT
+"app_primer_post".
+"id",
+"app_primer_post".
+"title",
+"app_primer_post".
+"text",
+"app_primer_post".
+"pub_date",
+"app_primer_post".
+"author_id",
+"app_primer_post".
+"categories_id"
+FROM
+"app_primer_post"
+ORDER
+BY
+"app_primer_post".
+"pub_date"
+ASC
+LIMIT
+21
 
-Execution time: 0.000000s [Database: default]
-SELECT "auth_user"."id",
-       "auth_user"."password",
-       "auth_user"."last_login",
-       "auth_user"."is_superuser",
-       "auth_user"."username",
-       "auth_user"."first_name",
-       "auth_user"."last_name",
-       "auth_user"."email",
-       "auth_user"."is_staff",
-       "auth_user"."is_active",
-       "auth_user"."date_joined"
-  FROM "auth_user"
- WHERE "auth_user"."id" IN (1, 2, 3)
+Execution
+time: 0.000000
+s[Database: default]
+SELECT
+"auth_user".
+"id",
+"auth_user".
+"password",
+"auth_user".
+"last_login",
+"auth_user".
+"is_superuser",
+"auth_user".
+"username",
+"auth_user".
+"first_name",
+"auth_user".
+"last_name",
+"auth_user".
+"email",
+"auth_user".
+"is_staff",
+"auth_user".
+"is_active",
+"auth_user".
+"date_joined"
+FROM
+"auth_user"
+WHERE
+"auth_user".
+"id"
+IN(1, 2, 3)
 
-Execution time: 0.000000s [Database: default]
-SELECT "app_primer_category"."id",
-       "app_primer_category"."title",
-       "app_primer_category"."slug",
-       "app_primer_category"."description"
-  FROM "app_primer_category"
- WHERE "app_primer_category"."id" IN (1, 2, 3, 4)
+Execution
+time: 0.000000
+s[Database: default]
+SELECT
+"app_primer_category".
+"id",
+"app_primer_category".
+"title",
+"app_primer_category".
+"slug",
+"app_primer_category".
+"description"
+FROM
+"app_primer_category"
+WHERE
+"app_primer_category".
+"id"
+IN(1, 2, 3, 4)
 ```
+
 </details>
 
 
 [//]: # (--------------------------------------------------------------)
+
 [//]: # (9. Вывести посты в которых содержатся слова "других", "проце", "испол", "автом".)
 <details>
 <summary>
@@ -603,10 +811,12 @@ SELECT "app_primer_category"."id",
 ```python
 Post.objects.filter(text__contains="других")
 ```
+
 </details>
 
 
 [//]: # (--------------------------------------------------------------)
+
 [//]: # (10. Вывести посты у которых значение id больше 5 и меньше 10.)
 <details>
 <summary>
@@ -618,12 +828,15 @@ Post.objects.filter(text__contains="других")
 ```python
 Post.objects.filter(pk__gt=5, pk__lt=10).count()
 ```
+
 ```python
 Post.objects.filter(pk__gt=5).filter(pk__lt=10)
 ```
+
 ```python
 from django.db.models import Q
 ```
+
 ```python
 Post.objects.filter(Q(pk__gt=5) & Q(pk__lt=10))
 ```
@@ -632,6 +845,7 @@ Post.objects.filter(Q(pk__gt=5) & Q(pk__lt=10))
 
 
 [//]: # (--------------------------------------------------------------)
+
 [//]: # (11. Вывести 1й и последний пост.)
 <details>
 <summary>
@@ -643,12 +857,15 @@ Post.objects.filter(Q(pk__gt=5) & Q(pk__lt=10))
 ```python
 Post.objects.first()
 ```
+
 ```python
 Post.objects.last()
 ```
+
 </details>
 
 [//]: # (--------------------------------------------------------------)
+
 [//]: # (12. Вывести посты 1,5,10,15 одним запросом.)
 <details>
 <summary>
@@ -658,11 +875,13 @@ Post.objects.last()
 </summary>
 
 ```python
-Post.objects.filter(pk__in=[1,5,10,15])
+Post.objects.filter(pk__in=[1, 5, 10, 15])
 ```
+
 </details>
 
 [//]: # (--------------------------------------------------------------)
+
 [//]: # (13. Вывести посты пользователя adm, Anton и Артемий через related_name, а также через related_name по умолчанию.)
 <details>
 <summary>
@@ -675,6 +894,7 @@ Post.objects.filter(pk__in=[1,5,10,15])
 art = User.objects.get(pk=1)
 
 ```
+
 * _или так_
 
 ```python
@@ -700,9 +920,11 @@ adm.post_set.all()
 ```python
 User.objects.get(username='adm').post_set.all()
 ```
+
 </details>
 
 [//]: # (--------------------------------------------------------------)
+
 [//]: # (14. Вывести Min, Max, Avg, Sum, Count id-шников постов автора adm, Артемий через aggregate)
 <details>
 <summary>
@@ -712,15 +934,17 @@ User.objects.get(username='adm').post_set.all()
 </summary>
 
 ```python
-adm=User.objects.get(username="adm")
+adm = User.objects.get(username="adm")
 ```
 
 ```python
 adm.posts.filter(categories__title="Дизайн")
 ```
+
 </details>
 
 [//]: # (--------------------------------------------------------------)
+
 [//]: # (15. Вывести Min, Max, Avg, Sum, Count id-шников постов автора adm, Артемий через aggregate)
 <details>
 <summary>
@@ -732,10 +956,12 @@ adm.posts.filter(categories__title="Дизайн")
 ```python
 Post.objects.aggregate(Min('pk'), Max('pk'), Avg('pk'), Sum('pk'), Count('pk'))
 ```
+
 </details>
 
 
 [//]: # (--------------------------------------------------------------)
+
 [//]: # (16. Используя values вывести название статить и автора у постов с id 1, 5, 22)
 <details>
 <summary>
@@ -747,13 +973,16 @@ Post.objects.aggregate(Min('pk'), Max('pk'), Avg('pk'), Sum('pk'), Count('pk'))
 ```python
 Post.objects.values("title", "author__username").get(pk=5)
 ```
+
 ```python
 Post.objects.values("title", "author__username").get(pk=22)
 ```
+
 </details>
 
 
 [//]: # (--------------------------------------------------------------)
+
 [//]: # (17. Вывести количество постов в каждой категории используя метод annotate)
 <details>
 <summary>
@@ -765,12 +994,15 @@ Post.objects.values("title", "author__username").get(pk=22)
 ```python
 categories_with_post_count = Category.objects.annotate(post_count=Count("posts"))
 ```
+
 ```python
 for category in categories_with_post_count:
 ```
+
 ```python
     print(f"{category.title}: {category.post_count} постов")
 ```
+
 ```python
 вывод:
 # Execution time: 0.001001s [Database: default]
@@ -780,8 +1012,8 @@ for category in categories_with_post_count:
 # Программирование: 9 постов
 # Тестирование: 6 постов
 ```
-</details>
 
+</details>
 
 ```python
 

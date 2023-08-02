@@ -753,6 +753,36 @@ Post.objects.values("title", "author__username").get(pk=22)
 </details>
 
 
+[//]: # (--------------------------------------------------------------)
+[//]: # (17. Вывести количество постов в каждой категории используя метод annotate)
+<details>
+<summary>
+<strong> 
+17. Вывести количество постов в каждой категории используя метод annotate
+</strong>
+</summary>
+
+```python
+categories_with_post_count = Category.objects.annotate(post_count=Count("posts"))
+```
+```python
+for category in categories_with_post_count:
+```
+```python
+    print(f"{category.title}: {category.post_count} постов")
+```
+```python
+вывод:
+# Execution time: 0.001001s [Database: default]
+# Аналитика: 6 постов
+# Дизайн: 5 постов
+# Английский: 0 постов
+# Программирование: 9 постов
+# Тестирование: 6 постов
+```
+</details>
+
+
 ```python
 
 ```

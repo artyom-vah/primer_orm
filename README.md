@@ -1053,9 +1053,6 @@ for author in authors_with_post_count:
 </details>
 
 
-```python
-
-```
 
 **Автор проекта: Артем Вахрушев.**
    

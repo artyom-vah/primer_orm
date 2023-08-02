@@ -1015,6 +1015,44 @@ for category in categories_with_post_count:
 
 </details>
 
+
+[//]: # (--------------------------------------------------------------)
+
+[//]: # (19. Вывести количество постов каждого автора используя метод annotate)
+<details>
+<summary>
+<strong> 
+19. Вывести количество постов каждого автора используя метод annotate
+</strong>
+</summary>
+
+```python
+authors_with_post_count = User.objects.annotate(post_count=Count('post'))
+```
+
+```python
+for author in authors_with_post_count:
+```
+
+```python
+    print(f"{author.username} написал(а) {author.post_count} постов")
+```
+
+```python
+вывод:
+# Anton написал(а) 0 постов
+# Test написал(а) 0 постов
+# adm написал(а) 10 постов
+# adm1 написал(а) 0 постов
+# admin написал(а) 0 постов
+# art написал(а) 0 постов
+# Артемий написал(а) 9 постов
+# Николай написал(а) 7 постов
+```
+
+</details>
+
+
 ```python
 
 ```

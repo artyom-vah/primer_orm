@@ -966,7 +966,7 @@ Post.objects.aggregate(Min('pk'), Max('pk'), Avg('pk'), Sum('pk'), Count('pk'))
 <details>
 <summary>
 <strong> 
-16. Используя values вывести название статьи и автора у постов с id 1, 5, 22
+16. Используя values вывести название статьи и автора у постов с id 1 (5, 22)
 </strong>
 </summary>
 
@@ -1049,6 +1049,7 @@ for author in authors_with_post_count:
 # Артемий написал(а) 9 постов
 # Николай написал(а) 7 постов
 ```
+
 
 </details>
 

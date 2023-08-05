@@ -988,11 +988,153 @@ for author in authors_with_post_count:
 # Артемий написал(а) 9 постов
 # Николай написал(а) 7 постов
 ```
+</details>
 
+[//]: # (--------------------------------------------------------------)
+
+[//]: # (19. Пример N+1 проблемы для моделей Category и Post.)
+<details>
+<summary>
+<strong> 
+19. Пример N+1 проблемы для моделей Category и Post.
+</strong>
+</summary>
+
+```python
+ posts_1_cat = Post.objects.filter(categories__title="Программирование")
+```
+
+```python
+for post in posts_1_cat:
+```
+```python
+    print(f"Пост: {post.title}")
+```
+```python
+    print(f"Категория: {post.categories.title}") # N+1 запросов к базе данных
+```
+```python
+Пост: Python
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 1
+ LIMIT 21
+
+Execution time: 0.000999s [Database: default]
+Категория: Программирование
+Пост: C#
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 1
+ LIMIT 21
+
+Execution time: 0.000000s [Database: default]
+Категория: Программирование
+Пост: Java
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 1
+ LIMIT 21
+
+Execution time: 0.001000s [Database: default]
+Категория: Программирование
+Пост: C++
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 1
+ LIMIT 21
+
+Execution time: 0.000000s [Database: default]
+Категория: Программирование
+Пост: JavaScript
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 1
+ LIMIT 21
+
+Execution time: 0.001031s [Database: default]
+Категория: Программирование
+Пост: Ruby
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 1
+ LIMIT 21
+
+Execution time: 0.000998s [Database: default]
+Категория: Программирование
+Пост: SQL
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 1
+ LIMIT 21
+
+Execution time: 0.000000s [Database: default]
+Категория: Программирование
+Пост: Go
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 1
+ LIMIT 21
+
+Execution time: 0.000000s [Database: default]
+Категория: Программирование
+Пост: Kotlin
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 1
+ LIMIT 21
+
+Execution time: 0.000576s [Database: default]
+Категория: Программирование
+```
 
 </details>
 
 
+
+
+
+[//]: # (--------------------------------------------------------------)
+
+[//]: # (0. описание)
+<details>
+<summary>
+<strong> 
+. описание
+</strong>
+</summary>
+
+```python
+
+```
+</details>
 
 **Автор проекта: Артем Вахрушев.**
    

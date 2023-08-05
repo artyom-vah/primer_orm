@@ -647,70 +647,36 @@ Post.objects.select_related('author', 'categories').all()
 ```python
 # вот пример select_related, таблицы: post, auth_user, category в одном запросе: 
 SELECT
-"app_primer_post".
-"id",
-"app_primer_post".
-"title",
-"app_primer_post".
-"text",
-"app_primer_post".
-"pub_date",
-"app_primer_post".
-"author_id",
-"app_primer_post".
-"categories_id",
-"auth_user".
-"id",
-"auth_user".
-"password",
-"auth_user".
-"last_login",
-"auth_user".
-"is_superuser",
-"auth_user".
-"username",
-"auth_user".
-"first_name",
-"auth_user".
-"last_name",
-"auth_user".
-"email",
-"auth_user".
-"is_staff",
-"auth_user".
-"is_active",
-"auth_user".
-"date_joined",
-"app_primer_category".
-"id",
-"app_primer_category".
-"title",
-"app_primer_category".
-"slug",
-"app_primer_category".
-"description"
+"app_primer_post"."id",
+"app_primer_post"."title",
+"app_primer_post"."text",
+"app_primer_post"."pub_date",
+"app_primer_post"."author_id",
+"app_primer_post"."categories_id",
+"auth_user"."id",
+"auth_user"."password",
+"auth_user"."last_login",
+"auth_user"."is_superuser",
+"auth_user"."username",
+"auth_user"."first_name",
+"auth_user"."last_name",
+"auth_user"."email",
+"auth_user"."is_staff",
+"auth_user"."is_active",
+"auth_user"."date_joined",
+"app_primer_category"."id",
+"app_primer_category"."title",
+"app_primer_category"."slug",
+"app_primer_category"."description"
 FROM
 "app_primer_post"
-INNER
-JOIN
+INNER JOIN
 "auth_user"
-ON("app_primer_post".
-"author_id" = "auth_user".
-"id")
-LEFT
-OUTER
-JOIN
-"app_primer_category"
-ON("app_primer_post".
-"categories_id" = "app_primer_category".
-"id")
-ORDER
-BY
-"app_primer_post".
-"pub_date"
-ASC
-LIMIT
-21
+ON("app_primer_post"."author_id" = "auth_user"."id")
+LEFT OUTER JOIN
+"app_primer_category" ON ("app_primer_post"."categories_id" = "app_primer_category"."id")
+ORDER BY
+"app_primer_post"."pub_date" ASC LIMIT 21
 ```
 
 ```python
@@ -720,78 +686,51 @@ Post.objects.prefetch_related('author', 'categories').all()
 ```python
 # вот пример prefetch_related, таблицы: post, auth_user, category в 3х запросах: 
 SELECT
-"app_primer_post".
-"id",
-"app_primer_post".
-"title",
-"app_primer_post".
-"text",
-"app_primer_post".
-"pub_date",
-"app_primer_post".
-"author_id",
-"app_primer_post".
-"categories_id"
+"app_primer_post"."id",
+"app_primer_post"."title",
+"app_primer_post"."text",
+"app_primer_post"."pub_date",
+"app_primer_post"."author_id",
+"app_primer_post"."categories_id"
 FROM
 "app_primer_post"
-ORDER
-BY
-"app_primer_post".
-"pub_date"
-ASC
-LIMIT
-21
+ORDER BY
+"app_primer_post"."pub_date"
+ASC LIMIT 21
 
 Execution
 time: 0.000000
 s[Database: default]
 SELECT
-"auth_user".
-"id",
-"auth_user".
-"password",
-"auth_user".
-"last_login",
-"auth_user".
-"is_superuser",
-"auth_user".
-"username",
-"auth_user".
-"first_name",
-"auth_user".
-"last_name",
-"auth_user".
-"email",
-"auth_user".
-"is_staff",
-"auth_user".
-"is_active",
-"auth_user".
-"date_joined"
+"auth_user"."id",
+"auth_user"."password",
+"auth_user"."last_login",
+"auth_user"."is_superuser",
+"auth_user"."username",
+"auth_user"."first_name",
+"auth_user"."last_name",
+"auth_user"."email",
+"auth_user"."is_staff",
+"auth_user"."is_active",
+"auth_user"."date_joined"
 FROM
 "auth_user"
 WHERE
-"auth_user".
-"id"
+"auth_user"."id"
 IN(1, 2, 3)
 
 Execution
 time: 0.000000
 s[Database: default]
 SELECT
-"app_primer_category".
-"id",
-"app_primer_category".
-"title",
-"app_primer_category".
-"slug",
-"app_primer_category".
-"description"
+"app_primer_category"."id",
+"app_primer_category"."title",
+"app_primer_category"."slug",
+"app_primer_category"."description"
 FROM
 "app_primer_category"
 WHERE
-"app_primer_category".
-"id"
+"app_primer_category"."id"
 IN(1, 2, 3, 4)
 ```
 

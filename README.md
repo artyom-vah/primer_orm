@@ -1117,8 +1117,50 @@ Execution time: 0.000576s [Database: default]
 
 </details>
 
+[//]: # (--------------------------------------------------------------)
 
+[//]: # (20. Решение проблемы N+1 для моделей Category и Post.)
+<details>
+<summary>
+<strong> 
+20. Решение проблемы N+1 для моделей Category и Post.
+</strong>
+</summary>
 
+```python
+posts_1_cat = Post.objects.select_related('categories').filter(categories__title="Программирование")
+```
+
+```python
+for post in posts_1_cat:
+```
+
+```python
+    print(f"Пост: {post.title}")
+```
+```python
+    print(f"Категория: {post.categories.title}")  # Без дополнительных запросов
+```
+
+```python
+SELECT "app_primer_post"."id",
+       "app_primer_post"."title",
+       "app_primer_post"."text",
+       "app_primer_post"."pub_date",
+       "app_primer_post"."author_id",
+       "app_primer_post"."categories_id",
+       "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_post"
+ INNER JOIN "app_primer_category"
+    ON ("app_primer_post"."categories_id" = "app_primer_category"."id")
+ WHERE "app_primer_category"."title" = 'Программирование'
+ ORDER BY "app_primer_post"."pub_date" ASC
+    
+```
+</details>
 
 
 [//]: # (--------------------------------------------------------------)
@@ -1127,7 +1169,7 @@ Execution time: 0.000576s [Database: default]
 <details>
 <summary>
 <strong> 
-. описание
+0000. описание
 </strong>
 </summary>
 

@@ -1190,7 +1190,7 @@ Execution time: 0.000000s [Database: default]
 <details>
 <summary>
 <strong> 
-21. Вывести у всех  постов автора adm (Артемие) pk, заголовок поста и название категории этого поста [через values и filter]
+21. Вывести pk, заголовок поста и название категории этого поста у автора adm (Артемие)  [через values и filter]
 </strong>
 </summary>
 
@@ -1199,6 +1199,36 @@ Post.objects.values('pk', 'title','categories__title').filter(author__username='
 ```
 </details>
 
+
+[//]: # (--------------------------------------------------------------)
+
+[//]: # (22. Посчитать количество постов в каждой категории через annotate)
+<details>
+<summary>
+<strong> 
+22. Посчитать количество постов в каждой категории через annotate
+</strong>
+</summary>
+
+```python
+categories_count = Category.objects.annotate(post_count=Count('posts'))
+```
+```python
+for category in categories_count:
+```
+```python
+    print(f"Категория: {category.title}, Количество постов: {category.post_count}")
+```
+```python
+# Вывод
+# Execution time: 0.001029s [Database: default]
+# Категория: Аналитика, Количество постов: 6
+# Категория: Дизайн, Количество постов: 5
+# Категория: Английский, Количество постов: 0
+# Категория: Программирование, Количество постов: 9
+# Категория: Тестирование, Количество постов: 6
+```
+</details>
 
 [//]: # (--------------------------------------------------------------)
 

@@ -1184,10 +1184,25 @@ Execution time: 0.000000s [Database: default]
 ```
 </details>
 
+[//]: # (--------------------------------------------------------------)
+
+[//]: # (21. Вывести название поста и название категории у adm [через values и filter])
+<details>
+<summary>
+<strong> 
+21. Вывести pk, название поста и название категории поста у adm, Артемий [через values и filter]
+</strong>
+</summary>
+
+```python
+Post.objects.values('pk', 'title','categories__title').filter(author__username='adm')
+```
+</details>
+
 
 [//]: # (--------------------------------------------------------------)
 
-[//]: # (0. описание)
+[//]: # (0. описание задания)
 <details>
 <summary>
 <strong> 

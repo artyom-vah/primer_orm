@@ -425,11 +425,11 @@ Category.objects.all()
 ```
 
 ```python
-Category.objects.all().count()
+Category.objects.count()
 ```
 
 ```python
-Post.objects.all().count()
+Post.objects.count()
 ```
 
 </details>

@@ -1119,6 +1119,351 @@ Execution time: 0.000576s [Database: default]
 
 [//]: # (--------------------------------------------------------------)
 
+[//]: # (--------------------------------------------------------------)
+
+[//]: # (19.1 Еще пример N+1 проблемы для моделей Category и Post.)
+<details>
+<summary>
+<strong> 
+19-1. Еще пример N+1 проблемы для моделей Category и Post.
+</strong>
+</summary>
+
+```python
+for i in Post.objects.all():
+```
+```python
+  print(i.id, i.categories.title)
+```
+```python
+SELECT "app_primer_post"."id",
+       "app_primer_post"."title",
+       "app_primer_post"."text",
+       "app_primer_post"."pub_date",
+       "app_primer_post"."author_id",
+       "app_primer_post"."categories_id"
+  FROM "app_primer_post"
+ ORDER BY "app_primer_post"."pub_date" ASC
+
+Execution time: 0.000000s [Database: default]
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 1
+ LIMIT 21
+
+Execution time: 0.000000s [Database: default]
+1 Программирование
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 1
+ LIMIT 21
+
+Execution time: 0.000000s [Database: default]
+2 Программирование
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 1
+ LIMIT 21
+
+Execution time: 0.000000s [Database: default]
+3 Программирование
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 1
+ LIMIT 21
+
+Execution time: 0.000000s [Database: default]
+4 Программирование
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 1
+ LIMIT 21
+
+Execution time: 0.000000s [Database: default]
+5 Программирование
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 1
+ LIMIT 21
+
+Execution time: 0.001003s [Database: default]
+6 Программирование
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 1
+ LIMIT 21
+
+Execution time: 0.001004s [Database: default]
+7 Программирование
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 1
+ LIMIT 21
+
+Execution time: 0.000000s [Database: default]
+8 Программирование
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 1
+ LIMIT 21
+
+Execution time: 0.000000s [Database: default]
+9 Программирование
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 4
+ LIMIT 21
+
+Execution time: 0.000000s [Database: default]
+10 Тестирование
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 3
+ LIMIT 21
+
+Execution time: 0.000526s [Database: default]
+11 Дизайн
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 3
+ LIMIT 21
+
+Execution time: 0.000000s [Database: default]
+12 Дизайн
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 3
+ LIMIT 21
+
+Execution time: 0.000000s [Database: default]
+13 Дизайн
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 3
+ LIMIT 21
+
+Execution time: 0.000000s [Database: default]
+14 Дизайн
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 3
+ LIMIT 21
+
+Execution time: 0.000000s [Database: default]
+15 Дизайн
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 2
+ LIMIT 21
+
+Execution time: 0.000000s [Database: default]
+16 Аналитика
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 2
+ LIMIT 21
+
+Execution time: 0.000000s [Database: default]
+17 Аналитика
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 2
+ LIMIT 21
+
+Execution time: 0.000000s [Database: default]
+18 Аналитика
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 2
+ LIMIT 21
+
+Execution time: 0.000000s [Database: default]
+19 Аналитика
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 2
+ LIMIT 21
+
+Execution time: 0.000000s [Database: default]
+20 Аналитика
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 2
+ LIMIT 21
+
+Execution time: 0.000000s [Database: default]
+21 Аналитика
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 4
+ LIMIT 21
+
+Execution time: 0.000000s [Database: default]
+22 Тестирование
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 4
+ LIMIT 21
+
+Execution time: 0.000000s [Database: default]
+23 Тестирование
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 4
+ LIMIT 21
+
+Execution time: 0.000000s [Database: default]
+24 Тестирование
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 4
+ LIMIT 21
+
+Execution time: 0.000000s [Database: default]
+25 Тестирование
+SELECT "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_category"
+ WHERE "app_primer_category"."id" = 4
+ LIMIT 21
+
+Execution time: 0.000000s [Database: default]
+26 Тестирование
+```
+
+```python
+for i in Post.objects.select_related('categories'):
+```
+```python
+    print(i.id, i.categories.title)
+```
+```python
+SELECT "app_primer_post"."id",
+       "app_primer_post"."title",
+       "app_primer_post"."text",
+       "app_primer_post"."pub_date",
+       "app_primer_post"."author_id",
+       "app_primer_post"."categories_id",
+       "app_primer_category"."id",
+       "app_primer_category"."title",
+       "app_primer_category"."slug",
+       "app_primer_category"."description"
+  FROM "app_primer_post"
+  LEFT OUTER JOIN "app_primer_category"
+    ON ("app_primer_post"."categories_id" = "app_primer_category"."id")
+ ORDER BY "app_primer_post"."pub_date" ASC
+
+```
+```python
+# вывод
+# 1 Программирование
+# 2 Программирование
+# 3 Программирование
+# 4 Программирование
+# 5 Программирование
+# 6 Программирование
+# 7 Программирование
+# 8 Программирование
+# 9 Программирование
+# 10 Тестирование
+# 11 Дизайн
+# 12 Дизайн
+# 13 Дизайн
+# 14 Дизайн
+# 15 Дизайн
+# 16 Аналитика
+# 17 Аналитика
+# 18 Аналитика
+# 19 Аналитика
+# 20 Аналитика
+# 21 Аналитика
+# 22 Тестирование
+# 23 Тестирование
+# 24 Тестирование
+# 25 Тестирование
+# 26 Тестирование
+```
+</details>
+
+
+
 [//]: # (20. Решение проблемы N+1 для моделей Category и Post.)
 <details>
 <summary>
@@ -1186,11 +1531,11 @@ Execution time: 0.000000s [Database: default]
 
 [//]: # (--------------------------------------------------------------)
 
-[//]: # (21. Вывести у всех  постов автора adm Артемие pk, заголовок поста и название категории этого поста [через values и filter])
+[//]: # (21. Вывести pk, заголовок поста и название категории этого поста у автора adm Артемий [через values и filter])
 <details>
 <summary>
 <strong> 
-21. Вывести pk, заголовок поста и название категории этого поста у автора adm (Артемие)  [через values и filter]
+21. Вывести pk, заголовок поста и название категории этого поста у автора adm (Артемий) [через values и filter]
 </strong>
 </summary>
 

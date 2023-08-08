@@ -36,7 +36,7 @@ class Post(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments', verbose_name='Комментарий поста')
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments',verbose_name='Автор комментария')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments', verbose_name='Автор комментария')
     text = models.TextField(verbose_name='Текст комментария')
 
     class Meta:
